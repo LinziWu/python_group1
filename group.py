@@ -1,28 +1,67 @@
-import csv
-import txt
 
-# First level functionality
-
-# The user provides a data file path, the mean vertical and horizontal
-# spacing for that data file, and a sea level height (L >= 0).
-def first_functionality(data_file_path, mean_vertical_spacing,
-                        mean_horzontal_spacing, sea_level_height):
-
-
+# # First level functionality
+# The user provides a data file path, the mean vertical and horizontal spacing for that data file, and a sea level height (L >= 0).
 # The program reads the data file, verifies that it follows the YXZ format.
+# The program then calculates the land area above level L using the first approximation (as described above).
+# The program reports the answer, expressed in absolute terms and as a percentage of the land area above the current sea level, to the user.
 
-data_file = open(,)
+def first_level_functionality(file, y=0, x=0, z=0):
+    """
+    Calculates the land area above sea level (z) using a given data file (file),
+    the mean horizontal spacing (x) and mean vertical spacing (y) and reports
+    the answer in absolute terms as well as a percentage of the land
+    area above the current sea level.
+
+    For example:
+    4 inputs:
+            # sydney250m.txt    (data file path)
+            # y = 0.278     (the mean vertical spacing)
+            # x = 0.231     (the mean horizontal spacing)
+            # z = +2 meters     (a sea level height (L >= 0))
+    2 outputs:
+            # 1064 square kilometers        (the land area above level L)
+            # 98.87%        (as a percentage of the land area above the current sea level)
 
 
-# The program then calculates the land area above level L using the first
-# approximation (as described above).
+    >>> first_level_functionality('sydney250m.txt', 0.278, 0.231, 2)
+    The land area above water in this area at + 2  meters will be
+    1064 square kilometers, which is
+    98.87 % of the current land area above water.
+
+    """
+
+    #problem:if no inputs enters a freeze state - fix this
+
+    fileobj = open(file,'r')
+
+    count_above_seaLevel = 0
+    count_total = 0
+
+    for row in fileobj:
+        altitude = float(row.split()[2])
+        # Split the argument into words using str.split().
+
+        if altitude > 0:
+            count_total += 1
+
+            if altitude > z:
+                count_above_seaLevel += 1
+                #explain double for loop here
+
+    area_above_seaLevel = int(x * y * count_above_seaLevel)
+
+    percentage_landArea_above_seaLevel = \
+    100 * round(count_above_seaLevel/count_total,4)
+
+    fileobj.close()
+
+    print("The land area above water in this area at +",z," meters will be ",
+    area_above_seaLevel,"square kilometers, which is ",
+    percentage_landArea_above_seaLevel,
+    "% of the current land area above water.")
 
 
 
-
-
-# The program reports the answer, expressed in absolute terms and as
-# a percentage of the land area above the current sea level, to the user.
 
 
 

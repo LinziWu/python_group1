@@ -1,10 +1,3 @@
-
-# # First level functionality
-# The user provides a data file path, the mean vertical and horizontal spacing for that data file, and a sea level height (L >= 0).
-# The program reads the data file, verifies that it follows the YXZ format.
-# The program then calculates the land area above level L using the first approximation (as described above).
-# The program reports the answer, expressed in absolute terms and as a percentage of the land area above the current sea level, to the user.
-
 def first_level_functionality(file, y=0, x=0, z=0):
     """
     Calculates the land area above sea level (z) using a given data file (file),

@@ -1,3 +1,5 @@
+
+
 def first_level_functionality(file, y=0, x=0, z=0):
     """
     Calculates the land area above sea level (z) using a given data file (file),
@@ -22,40 +24,39 @@ def first_level_functionality(file, y=0, x=0, z=0):
     98.87 % of the current land area above water.
 
     """
-
-    #problem:if no inputs enters a freeze state - fix this
-
+    
     fileobj = open(file,'r')
 
     count_above_seaLevel = 0
     count_total = 0
 
     for row in fileobj:
+        # Split the argument into words using str.split()
         altitude = float(row.split()[2])
-        # Split the argument into words using str.split().
 
         if altitude > 0:
             count_total += 1
 
             if altitude > z:
-                count_above_seaLevel += 1
                 #explain double for loop here
+                count_above_seaLevel += 1
 
     area_above_seaLevel = int(x * y * count_above_seaLevel)
 
+    #comment explain this
     percentage_landArea_above_seaLevel = \
     100 * round(count_above_seaLevel/count_total,4)
 
     fileobj.close()
 
-    print("The land area above water in this area at +",z," meters will be ",
-    area_above_seaLevel,"square kilometers, which is ",
+    print(
+    "The land area above water in this area at +",
+    z,
+    "meters will be",
+    area_above_seaLevel,
+    "square kilometers, which is",
     percentage_landArea_above_seaLevel,
     "% of the current land area above water.")
-
-
-
-
 
 
 # Second level functionality

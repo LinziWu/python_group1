@@ -1,3 +1,4 @@
+import matplotlib.pyplot as plt
 
 
 def first_level_functionality(file, y=0, x=0, z=0):
@@ -24,7 +25,7 @@ def first_level_functionality(file, y=0, x=0, z=0):
     98.87 % of the current land area above water.
 
     """
-    
+
     fileobj = open(file,'r')
 
     count_above_seaLevel = 0
@@ -65,6 +66,41 @@ def first_level_functionality(file, y=0, x=0, z=0):
 # The program finds the highest elevation in the given data file, divides
 # the range from zero to the highest elevation into a suitable number of steps,
 # computes the land area above each of them and reports all the answers to the user.
+
+
+def second_level_functionality(file, mean_vertical, mean_horizontal):
+    """ docstring goes here """
+
+    fileobj = open (file, 'r')
+
+    # Divides the range of the sea level from zero to the highest elevation
+    #into a suitable number of steps
+
+    x_max = float(first_atltitude)
+    x_min = float(first_atltitude)
+
+    for row in fileobj:
+        altitude = float(row.split()[2])
+        if altitude > x_max:
+            x_max = altitude
+        if altitude < x_min:
+            x_min = altitude
+    x_axis_step = (x_max-x_min)/10
+
+    i = x_min
+    altitude = float(row.split()[2])
+    while i + x_axis_step <= x_max:
+        for row in fileobj:
+            if i < altitude <= i + x_axis_step:
+                count_above_seaLevel += 1
+        y = int(mean_vertical * mean_horizontal * count_above_seaLevel)
+        plt.plot(points_list.extend((2*i+x_axis_step)/2,y)
+
+        i = i + x_axis_step
+
+    plt.ylabel('area_above_water')
+    plt.xlabel('sea_level_increase')
+    plt.show()
 
 
 # Third level functionality

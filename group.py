@@ -1,4 +1,4 @@
-import matplotlib.pyplot as plt
+import matplotlib as plt
 
 
 def first_level_functionality(file, y=0, x=0, z=0):
@@ -72,9 +72,10 @@ def second_level_functionality(file, mean_vertical, mean_horizontal):
     """ docstring goes here """
 
     fileobj = open (file, 'r')
+    first_atltitude = fileobj.readline().split()[2]
 
     # Divides the range of the sea level from zero to the highest elevation
-    #into a suitable number of steps
+    # into a suitable number of steps
 
     x_max = float(first_atltitude)
     x_min = float(first_atltitude)
@@ -85,22 +86,48 @@ def second_level_functionality(file, mean_vertical, mean_horizontal):
             x_max = altitude
         if altitude < x_min:
             x_min = altitude
-    x_axis_step = (x_max-x_min)/10
 
     i = x_min
-    altitude = float(row.split()[2])
-    while i + x_axis_step <= x_max:
-        for row in fileobj:
-            if i < altitude <= i + x_axis_step:
-                count_above_seaLevel += 1
-        y = int(mean_vertical * mean_horizontal * count_above_seaLevel)
-        plt.plot(points_list.extend((2*i+x_axis_step)/2,y)
+    k = x_max
+    x_step = (i - k)/10
+    points = []
 
-        i = i + x_axis_step
+    #[1,2,3,4,5,6,7,8,9,10]
+
+    for t in range(x_min, x_max):
+        for j in (i, i + x_step):
+            for row in fileobj:
+                if i < float(row.split()[2]) <= i + x_step:
+                    count_above_seaLevel += 1
+    points.append(count_above_seaLevel)
+
+    area = mean_vertical * mean_horizontal
+
+    area_list = [x*area for x in range (points)]
+
+    result = new_list_forLevelTwo(area_list)
+    n = 0
+    while n < 10:
+        plt.plot(points_list.extend(x_min + n * x_step , result[9 - n])
+        n += 1
 
     plt.ylabel('area_above_water')
     plt.xlabel('sea_level_increase')
+
     plt.show()
+
+def new_list_forLevelTwo (z):
+    k = 0
+    new_list = []
+    while z != []:
+        n = len(z)
+        k += z[n-1]
+        new_list.append(k)
+
+        z.pop(n-1)
+
+    return new_list
+
 
 
 # Third level functionality
@@ -109,6 +136,35 @@ def second_level_functionality(file, mean_vertical, mean_horizontal):
 # second approximation (as described above) and reports the results of both
 # approximations. The user also does not have to provide the mean vertical and
 # horizontal spacing; these are automatically computed from the coordinates in the data file.
+
+def third_level_functionality(file):
+    """ docstring goes here """
+
+    fileobj = open (file, 'r')
+
+
+    x_values_list = []
+    y_values_list = []
+
+    for row in fileobj:
+        # iterates through every x value and adds it to a list
+        x_value = float(row.split()[1]) # the middle column 'x'
+        x_values_list.append(x_value)
+        # iterates through file for every y value and adds it to a list
+        y_value = float(row.split()[0]) # the left column 'y'
+        y_values_list.append(y_value)
+
+
+    # makes a set of all the y_values to get rid of all the repeat values
+    y_values_set = set(y_values_list)
+
+    # need to figure out how to find spacing value for every different y value
+
+
+
+    fileobj.close()
+
+
 
 
 

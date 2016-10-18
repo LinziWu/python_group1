@@ -166,8 +166,6 @@ def third_level_functionality(file):
 
 
 
-
-
 # Fourth level functionality
 
 # In addition to the above, the program computes the number of separate
@@ -177,3 +175,88 @@ def third_level_functionality(file):
 # sample points that are both above the sea level and adjacent, either
 # vertically, horizontally, or diagnonally in any direction, to be part of the
 # same connected land area.
+
+
+def fourth_level_funtionality (file, h):
+    """ docstring """
+    fileobj = open(path, 'r')
+    read_line = fileobj.readline()
+    y_northest = float(read_line.split()[0])
+    fileobj.close()
+
+
+    # Reopen the file because we've already read one row and the next row will be the second row.
+    fileobj = open(path, 'r')
+    count_row_num = 0
+    count_total_rows = 0        # Use array to represent the map, we need to find the number of rows and columns in the array.
+    for row in fileobj:
+        y_list.append(line_list[0])
+        x_list.append(line_list[1])
+        z_list.append(line_list[2])
+        row_list = [float(row.split()[0]), float(row.split()[1]), float(row.split()[2])]
+
+        count_total_rows += 1
+        if row_list[0] == y_northest:
+            count_row_num += 1
+
+
+    # Make the graph as a array
+    num_ROW = count_row_num
+    num_COL = int(count_total_rows/count_row_num)
+
+
+    count_island = 0;
+    for i in range(0,ROW):
+        for j in range(0, COL):
+            if (Map[i][j]==1 and visited[i][j] == False):       # If a cell with value 1 is not visited yet, then new island found.
+                visit_conneceted_land(visited, Map, i, j)       # Visit all cells in this island
+                count_island += 1                               # Increment island count
+    return count_island
+
+
+def not_out_of_range (visited, Map, i, j):
+     """ docstring """
+
+     if visited[row][col] == False and M[row][col]==1 and row < ROW and col < COL :
+         return True
+     else:
+         return False
+
+
+def visit_conneceted_land(Map, row, col, visited):
+    """ docstring """
+
+        # Use a list to get row and column numbers of 8 neighbors of a given cell
+        # From top to bottom, from left to right, both increment by 1.
+        row_num = [-1, -1, -1,  0,  0,  1, 1, 1]
+        col_num = [-1,  0,  1, -1,  1, -1, 0, 1]
+
+        # Mark this cell as visited
+        visited[row][col] = true;
+
+        # Recur for all connected neighbours
+        for i in range(0,9)
+            if (not_out_of_range(visited, Map, row + row_num[i], col + col_num[i]):
+                visit_conneceted_land(visited, Map, row + row_num[i], col + col_num[i])
+
+
+# Just wanna know the number of the same y divided by the number of all rows
+# 'sydney250m.txt': 24644/202 = 122
+# 'tas2k.txt' : 41410/205 = 202
+def count(path):
+    """ docstring """
+
+    fileobj = open(path, 'r')
+    read_line = fileobj.readline()
+    y_northest = float(read_line.split()[0])
+    fileobj.close()
+
+    total = 0
+    count = 0
+    fileobj = open(path, 'r')
+    for row in fileobj:
+        total += 1
+        if (float(row.split()[0]) == y_northest):
+            count += 1
+
+    return (count,total)
